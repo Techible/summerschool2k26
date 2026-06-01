@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>MERN Stack Bootcamp</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500&family=Geist+Mono:wght@400&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#ffffff;--bg2:#f7f7f5;--bg3:#f0ede8;
+  --text:#1a1a1a;--text2:#6b6b6b;--text3:#999;
+  --border:rgba(0,0,0,0.1);--border2:rgba(0,0,0,0.18);
+  --radius:8px;--radius-lg:12px;
+}
+@media(prefers-color-scheme:dark){:root{
+  --bg:#1a1a1a;--bg2:#242424;--bg3:#2c2c2a;
+  --text:#f0ede8;--text2:#999;--text3:#666;
+  --border:rgba(255,255,255,0.1);--border2:rgba(255,255,255,0.18);
+}}
+body{font-family:'Geist',system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+a{color:inherit;text-decoration:none}
+
+nav{display:flex;align-items:center;justify-content:space-between;padding:14px 32px;border-bottom:0.5px solid var(--border);background:var(--bg);position:sticky;top:0;z-index:50}
+.nav-logo{display:flex;align-items:center;gap:8px;font-size:15px;font-weight:500}
+.logo-dots{display:flex;gap:4px}
+.ld{width:8px;height:8px;border-radius:50%}
+.nav-links{display:flex;gap:4px}
+.nav-links a{font-size:13px;color:var(--text2);padding:6px 12px;border-radius:var(--radius);border:0.5px solid transparent;cursor:pointer}
+.nav-links a:hover{background:var(--bg2);border-color:var(--border)}
+.nav-cta{font-size:13px;font-weight:500;color:#0C447C;background:#E6F1FB;padding:7px 16px;border-radius:var(--radius);border:0.5px solid #85B7EB;cursor:pointer}
+
+.hero{padding:72px 32px 52px;text-align:center;border-bottom:0.5px solid var(--border);max-width:900px;margin:0 auto}
+.hero-chips{display:flex;justify-content:center;flex-wrap:wrap;gap:6px;margin-bottom:24px}
+.chip{padding:5px 14px;border-radius:99px;font-size:12px;font-weight:500;border:0.5px solid}
+.chip-m{background:#E6F1FB;color:#0C447C;border-color:#85B7EB}
+.chip-e{background:#E1F5EE;color:#085041;border-color:#5DCAA5}
+.chip-r{background:#FAECE7;color:#712B13;border-color:#F0997B}
+.chip-n{background:#EEEDFE;color:#3C3489;border-color:#AFA9EC}
+.chip-gray{background:var(--bg2);color:var(--text2);border-color:var(--border)}
+h1{font-size:38px;font-weight:500;line-height:1.2;margin-bottom:12px;letter-spacing:-0.02em}
+.hero-sub{font-size:16px;color:var(--text2);line-height:1.7;max-width:520px;margin:0 auto 32px}
+.hero-stats{display:inline-flex;border:0.5px solid var(--border);border-radius:var(--radius-lg);overflow:hidden}
+.stat{padding:16px 28px;text-align:center;border-right:0.5px solid var(--border)}
+.stat:last-child{border-right:none}
+.stat-num{font-size:22px;font-weight:500}
+.stat-label{font-size:12px;color:var(--text2);margin-top:2px}
+
+.container{max-width:900px;margin:0 auto;padding:0 32px}
+.section{padding:48px 0}
+.section-label{font-size:11px;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:var(--text2);margin-bottom:20px}
+
+.weeks-nav{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:28px}
+.wk-btn{padding:7px 16px;border-radius:99px;font-size:13px;border:0.5px solid var(--border2);background:var(--bg);color:var(--text2);cursor:pointer;transition:all 0.15s}
+.wk-btn:hover{background:var(--bg2)}
+.wk-btn.active{border-color:transparent;color:#fff;font-weight:500}
+.wk-btn.active.w1{background:#378ADD}
+.wk-btn.active.w2{background:#1D9E75}
+.wk-btn.active.w3{background:#D85A30}
+.wk-btn.active.w4{background:#7F77DD}
+
+.week-panel{display:none}
+.week-panel.show{display:block}
+
+.week-header-card{border:0.5px solid var(--border);border-radius:var(--radius-lg);padding:20px 24px;margin-bottom:20px;display:flex;align-items:flex-start;justify-content:space-between;gap:16px;background:var(--bg2)}
+.wh-title{font-size:17px;font-weight:500;margin-bottom:5px}
+.wh-sub{font-size:14px;color:var(--text2)}
+.wh-badge{font-size:12px;padding:5px 12px;border-radius:99px;font-weight:500;white-space:nowrap;flex-shrink:0}
+.badge-normal{background:#E6F1FB;color:#0C447C}
+.badge-intensive{background:#FAEEDA;color:#633806}
+
+.day-card{border:0.5px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;margin-bottom:10px;background:var(--bg)}
+.day-head{padding:16px 20px;display:flex;align-items:center;gap:12px;cursor:pointer;user-select:none}
+.day-head:hover{background:var(--bg2)}
+.day-num{font-size:12px;font-weight:500;color:var(--text2);min-width:40px}
+.day-title{font-size:15px;font-weight:500;flex:1}
+.day-tag{font-size:11px;padding:3px 9px;border-radius:99px;border:0.5px solid var(--border);color:var(--text2)}
+.day-arrow{font-size:16px;color:var(--text2);transition:transform 0.2s;flex-shrink:0}
+.day-arrow.open{transform:rotate(180deg)}
+
+.day-body{border-top:0.5px solid var(--border);padding:18px 20px;display:none}
+.day-body.open{display:block}
+
+.topics-row{margin-bottom:16px}
+.topics-label{font-size:11px;font-weight:500;color:var(--text2);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:8px}
+.topics-list{display:flex;flex-wrap:wrap;gap:6px}
+.topic-pill{font-size:12px;padding:4px 10px;border-radius:99px;background:var(--bg2);color:var(--text2);border:0.5px solid var(--border)}
+
+.hw-box{background:var(--bg2);border-radius:var(--radius);padding:14px 16px;margin-bottom:12px;border:0.5px solid var(--border)}
+.hw-label{font-size:11px;font-weight:500;color:var(--text2);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:8px;display:flex;align-items:center;gap:6px}
+.hw-label i{font-size:14px}
+.hw-text{font-size:14px;line-height:1.65}
+
+.submit-row{display:flex;align-items:center;gap:8px;padding:4px 0}
+.submit-label{font-size:13px;color:var(--text2)}
+.submit-link{font-size:13px;color:#185FA5;text-decoration:underline}
+.submit-placeholder{font-size:13px;color:var(--text3);font-style:italic}
+
+hr{border:none;border-top:0.5px solid var(--border)}
+
+.prereq-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px}
+.prereq-item{display:flex;align-items:center;gap:12px;padding:12px 16px;border:0.5px solid var(--border);border-radius:var(--radius);font-size:14px}
+.prereq-item i{font-size:18px;color:var(--text2);flex-shrink:0}
+
+.rules-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:8px}
+.rule-item{display:flex;align-items:flex-start;gap:12px;padding:14px 16px;border:0.5px solid var(--border);border-radius:var(--radius)}
+.rule-icon{font-size:16px;color:#1D9E75;flex-shrink:0;margin-top:2px}
+.rule-text{font-size:14px;line-height:1.5}
+
+footer{border-top:0.5px solid var(--border);padding:24px 32px;text-align:center;font-size:13px;color:var(--text2)}
+
+@media(max-width:600px){
+  nav{padding:12px 16px}
+  .nav-links{display:none}
+  h1{font-size:26px}
+  .hero{padding:48px 16px 36px}
+  .container{padding:0 16px}
+  .stat{padding:12px 16px}
+  .week-header-card{flex-direction:column}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">
+    <div class="logo-dots">
+      <div class="ld" style="background:#378ADD"></div>
+      <div class="ld" style="background:#1D9E75"></div>
+      <div class="ld" style="background:#D85A30"></div>
+      <div class="ld" style="background:#7F77DD"></div>
+    </div>
+    MERN Bootcamp
+  </div>
+  <div class="nav-links">
+    <a href="#schedule">Schedule</a>
+    <a href="#setup">Setup</a>
+    <a href="#rules">Rules</a>
+  </div>
+  <span class="nav-cta"><i class="ti ti-rocket" style="font-size:13px;margin-right:4px"></i>Enroll</span>
+</nav>
+
+<div class="hero">
+  <div class="hero-chips">
+    <span class="chip chip-m">MongoDB</span>
+    <span class="chip chip-e">Express</span>
+    <span class="chip chip-r">React</span>
+    <span class="chip chip-n">Node.js</span>
+    <span class="chip chip-gray">HTML · CSS · JavaScript</span>
+  </div>
+  <h1>MERN Stack Bootcamp</h1>
+  <p class="hero-sub">From absolute zero to a live full-stack app — in 4 weeks. Real projects every single day. No shortcuts, no fluff.</p>
+  <div class="hero-stats">
+    <div class="stat"><div class="stat-num">4</div><div class="stat-label">Weeks</div></div>
+    <div class="stat"><div class="stat-num">12</div><div class="stat-label">Sessions</div></div>
+    <div class="stat"><div class="stat-num">~48h</div><div class="stat-label">Instruction</div></div>
+    <div class="stat"><div class="stat-num">6+</div><div class="stat-label">Projects</div></div>
+  </div>
+</div>
+
+<div class="container">
+
+  <div class="section" id="schedule">
+    <div class="section-label">Weekly schedule — click a week to explore</div>
+    <div class="weeks-nav">
+      <button class="wk-btn active w1" onclick="showWeek(1)">Week 1 — Foundations</button>
+      <button class="wk-btn w2" onclick="showWeek(2)">Week 2 — Node + MongoDB ⚡</button>
+      <button class="wk-btn w3" onclick="showWeek(3)">Week 3 — React</button>
+      <button class="wk-btn w4" onclick="showWeek(4)">Week 4 — Full MERN + Deploy ⚡</button>
+    </div>
+
+    <!-- WEEK 1 -->
+    <div class="week-panel show" id="w1">
+      <div class="week-header-card">
+        <div>
+          <div class="wh-title">Week 1 — Web Foundations</div>
+          <div class="wh-sub">HTML · CSS · JavaScript · DOM · localStorage</div>
+        </div>
+        <span class="wh-badge badge-normal"><i class="ti ti-clock" style="font-size:13px;margin-right:4px"></i>3 days × 3 hours</span>
+      </div>
+      <div class="day-card">
+        <div class="day-head" onclick="toggleDay(this)">
+          <span class="day-num">Day 1</span>
+          <span class="day-title">HTML — how the web is structured</span>
+          <span class="day-tag">HTML5</span>
+          <i class="ti ti-chevron-down day-arrow"></i>
+        </div>
+        <div class="day-body">
+          <div class="topics-row">
+            <div class="topics-label">Topics covered</div>
+            <div class="topics-list">
+              <span class="topic-pill">Tags & elements</span><span class="topic-pill">Attributes</span><span class="topic-pill">Forms</span><span class="topic-pill">Semantic HTML5</span><span class="topic-pill">Multi-page linking</span><span class="topic-pill">Tables</span>
+            </div>
+          </div>
+          <div class="hw-box">
+            <div class="hw-label"><i class="ti ti-pencil"></i>Homework task</div>
+            <div class="hw-text">Build a <strong>3-page portfolio site</strong> using only HTML — no CSS, no JS yet. Must include a nav linking all pages, a skills table on the About page, and a contact form. Use semantic tags correctly. Comment your code.</div>
+          </div>
+          <div class="submit-row">
+            <i class="ti ti-send" style="font-size:15px;color:var(--text2)"></i>
+            <span class="submit-label">Submit here:</span>
+            <a class="submit-link" href="#">[Submission link — fill before sharing]</a>
+          </div>
+        </div>
+      </div>
+      <div class="day-card">
+        <div class="day-head" onclick="toggleDay(this)">
+          <span class="day-num">Day 2</span>
+          <span class="day-title">CSS — making it beautiful</span>
+          <span class="day-tag">CSS3</span>
+          <i class="ti ti-chevron-down day-arrow"></i>
+        </div>
+        <div class="day-body">
+          <div class="topics-row">
+            <div class="topics-label">Topics covered</div>
+            <div class="topics-list">
+              <span class="topic-pill">Box model</span><span class="topic-pill">Flexbox</span><span class="topic-pill">CSS Grid</span><span class="topic-pill">Media queries</span><span class="topic-pill">CSS variables</span><span class="topic-pill">Transitions</span><span class="topic-pill">Google Fonts</span>
+            </div>
+          </div>
+          <div class="hw-box">
+            <div class="hw-label"><i class="ti ti-pencil"></i>Homework task</div>
+            <div class="hw-text">Style your Day 1 portfolio — fully responsive on mobile & desktop. Must use Flexbox for nav, CSS Grid for the skills/projects section (min 3 cards), CSS variables for your color palette, and at least 1 CSS animation or hover transition.</div>
+          </div>
+          <div class="submit-row">
+            <i class="ti ti-send" style="font-size:15px;color:var(--text2)"></i>
+            <span class="submit-label">Submit here:</span>
+            <a class="submit-link" href="#">[Submission link — fill before sharing]</a>
+          </div>
+        </div>
+      </div>
+      <div class="day-card">
+        <div class="day-head" onclick="toggleDay(this)">
+          <span class="day-num">Day 3</span>
+          <span class="day-title">JavaScript — making it interactive</span>
+          <span class="day-tag">JS</span>
+          <i class="ti ti-chevron-down day-arrow"></i>
+        </div>
+        <div class="day-body">
+          <div class="topics-row">
+            <div class="topics-label">Topics covered</div>
+            <div class="topics-list">
+              <span class="topic-pill">Variables & types</span><span class="topic-pill">Functions</span><span class="topic-pill">Arrays & objects</span><span class="topic-pill">DOM manipulation</span><span class="topic-pill">Event listeners</span><span class="topic-pill">localStorage</span>
+            </div>
+          </div>
+          <div class="hw-box">
+            <div class="hw-label"><i class="ti ti-pencil"></i>Homework task</div>
+            <div class="hw-text">Build a <strong>To-Do List app</strong> — add, complete, and delete tasks. Tasks must persist on page refresh using localStorage. Show a live count of remaining tasks. No libraries, one JS file only.</div>
+          </div>
+          <div class="submit-row">
+            <i class="ti ti-send" style="font-size:15px;color:var(--text2)"></i>
+            <span class="submit-label">Submit here:</span>
+            <a class="submit-link" href="#">[Submission link — fill before sharing]</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- WEEK 2 -->
+    <div class="week-panel" id="w2">
+      <div class="week-header-card">
+        <div>
+          <div class="wh-title">Week 2 — JavaScript Deep Dive + Node.js + MongoDB</div>
+          <div class="wh-sub">Async JS · fetch API · Express · Mongoose · REST · Git</div>
+        </div>
+        <span class="wh-badge badge-intensive"><i class="ti ti-bolt" style="font-size:13px;margin-right:4px"></i>3 days × 6 hours — intensive</span>
+      </div>
+      <div class="day-card">
+        <div class="day-head" onclick="toggleDay(this)">
+          <span class="day-num">Day 4</span>
+          <span class="day-title">Advanced JS + Git & GitHub</span>
+          <span class="day-tag">JS · Git</span>
+          <i class="ti ti-chevron-down day-arrow"></i>
+        </div>
+        <div class="day-body">
+          <div class="topics-row">
+            <div class="topics-label">Topics covered</div>
+            <div class="topics-list">
+              <span class="topic-pill">Promises</span><span class="topic-pill">async/await</span><span class="topic-pill">fetch()</span><span class="topic-pill">ES6 modules</span><span class="topic-pill">map/filter/reduce</span><span class="topic-pill">Destructuring</span><span class="topic-pill">Git push/pull/branch</span>
+            </div>
+          </div>
+          <div class="hw-box">
+            <div class="hw-label"><i class="ti ti-pencil"></i>Homework task</div>
+            <div class="hw-text">Build a <strong>live Weather App</strong> using the OpenWeatherMap API (free key). Show city, temperature, condition, humidity, wind speed. Must handle loading state and errors gracefully. Push to a GitHub repo with a README.</div>
+          </div>
+          <div class="submit-row">
+            <i class="ti ti-send" style="font-size:15px;color:var(--text2)"></i>
+            <span class="submit-label">Submit here:</span>
+            <a class="submit-link" href="#">[Submission link — fill before sharing]</a>
+          </div>
+        </div>
+      </div>
+      <div class="day-card">
+        <div class="day-head" onclick="toggleDay(this)">
+          <span class="day-num">Day 5</span>
+          <span class="day-title">Node.js + Express — your first server</span>
+          <span class="day-tag">Node · Express</span>
+          <i class="ti ti-chevron-down day-arrow"></i>
+        </div>
+        <div class="day-body">
+          <div class="topics-row">
+            <div class="topics-label">Topics covered</div>
+            <div class="topics-list">
+              <span class="topic-pill">npm & package.json</span><span class="topic-pill">Express setup</span><span class="topic-pill">GET/POST/PUT/DELETE</span><span class="topic-pill">Middleware</span><span class="topic-pill">req & res</span><span class="topic-pill">Postman testing</span>
+            </div>
+          </div>
+          <div class="hw-box">
+            <div class="hw-label"><i class="ti ti-pencil"></i>Homework task</div>
+            <div class="hw-text">Build a <strong>Books Library REST API</strong> — full CRUD (GET all, GET by id, POST, PUT, DELETE). Data stored in a JS array for now. Return correct HTTP status codes. Test all routes in Postman and include screenshots.</div>
+          </div>
+          <div class="submit-row">
+            <i class="ti ti-send" style="font-size:15px;color:var(--text2)"></i>
+            <span class="submit-label">Submit here:</span>
+            <a class="submit-link" href="#">[Submission link — fill before sharing]</a>
+          </div>
+        </div>
+      </div>
+      <div class="day-card">
+        <div class="day-head" onclick="toggleDay(this)">
+          <span class="day-num">Day 6</span>
+          <span class="day-title">MongoDB + Mongoose — real database</span>
+          <span class="day-tag">MongoDB</span>
+          <i class="ti ti-chevron-down day-arrow"></i>
+        </div>
+        <div class="day-body">
+          <div class="topics-row">
+            <div class="topics-label">Topics covered</div>
+            <div class="topics-list">
+              <span class="topic-pill">MongoDB Atlas setup</span><span class="topic-pill">Mongoose schemas</span><span class="topic-pill">Models & validation</span><span class="topic-pill">CRUD with DB</span><span class="topic-pill">dotenv</span><span class="topic-pill">.gitignore secrets</span>
+            </div>
+          </div>
+          <div class="hw-box">
+            <div class="hw-label"><i class="ti ti-pencil"></i>Homework task</div>
+            <div class="hw-text">Upgrade your Day 5 Books API to use <strong>MongoDB Atlas + Mongoose</strong>. Add a User schema too. Full CRUD for both. All secrets in .env — never commit .env to GitHub.</div>
+          </div>
+          <div class="submit-row">
+            <i class="ti ti-send" style="font-size:15px;color:var(--text2)"></i>
+            <span class="submit-label">Submit here:</span>
+            <a class="submit-link" href="#">[Submission link — fill before sharing]</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- WEEK 3 -->
+    <div class="week-panel" id="w3">
+      <div class="week-header-card">
+        <div>
+          <div class="wh-title">Week 3 — React.js</div>
+          <div class="wh-sub">Components · Hooks · React Router · Full-stack connection</div>
+        </div>
+        <span class="wh-badge badge-normal"><i class="ti ti-clock" style="font-size:13px;margin-right:4px"></i>3 days × 3 hours</span>
+      </div>
+      <div class="day-card">
+        <div class="day-head" onclick="toggleDay(this)">
+          <span class="day-num">Day 7</span>
+          <span class="day-title">React foundations</span>
+          <span class="day-tag">React</span>
+          <i class="ti ti-chevron-down day-arrow"></i>
+        </div>
+        <div class="day-body">
+          <div class="topics-row">
+            <div class="topics-label">Topics covered</div>
+            <div class="topics-list">
+              <span class="topic-pill">Vite setup</span><span class="topic-pill">JSX</span><span class="topic-pill">Components</span><span class="topic-pill">Props</span><span class="topic-pill">useState</span><span class="topic-pill">Lists & keys</span><span class="topic-pill">Conditional rendering</span>
+            </div>
+          </div>
+          <div class="hw-box">
+            <div class="hw-label"><i class="ti ti-pencil"></i>Homework task</div>
+            <div class="hw-text">Rebuild your portfolio as a <strong>React app with Vite</strong>. Split into 5+ components: Navbar, Hero, Skills, Projects, Footer. Data via props. Skills and projects rendered from arrays with .map().</div>
+          </div>
+          <div class="submit-row">
+            <i class="ti ti-send" style="font-size:15px;color:var(--text2)"></i>
+            <span class="submit-label">Submit here:</span>
+            <a class="submit-link" href="#">[Submission link — fill before sharing]</a>
+          </div>
+        </div>
+      </div>
+      <div class="day-card">
+        <div class="day-head" onclick="toggleDay(this)">
+          <span class="day-num">Day 8</span>
+          <span class="day-title">Hooks + React Router</span>
+          <span class="day-tag">React Router</span>
+          <i class="ti ti-chevron-down day-arrow"></i>
+        </div>
+        <div class="day-body">
+          <div class="topics-row">
+            <div class="topics-label">Topics covered</div>
+            <div class="topics-list">
+              <span class="topic-pill">useEffect</span><span class="topic-pill">useContext</span><span class="topic-pill">Custom hooks</span><span class="topic-pill">React Router v6</span><span class="topic-pill">useParams</span><span class="topic-pill">useNavigate</span><span class="topic-pill">Controlled forms</span>
+            </div>
+          </div>
+          <div class="hw-box">
+            <div class="hw-label"><i class="ti ti-pencil"></i>Homework task</div>
+            <div class="hw-text">Build a <strong>Movie Search App</strong> using the OMDB API. Search page + individual movie detail page via React Router params. Loading spinner, error state, controlled input with useEffect.</div>
+          </div>
+          <div class="submit-row">
+            <i class="ti ti-send" style="font-size:15px;color:var(--text2)"></i>
+            <span class="submit-label">Submit here:</span>
+            <a class="submit-link" href="#">[Submission link — fill before sharing]</a>
+          </div>
+        </div>
+      </div>
+      <div class="day-card">
+        <div class="day-head" onclick="toggleDay(this)">
+          <span class="day-num">Day 9</span>
+          <span class="day-title">React meets the backend — first full-stack app</span>
+          <span class="day-tag">MERN</span>
+          <i class="ti ti-chevron-down day-arrow"></i>
+        </div>
+        <div class="day-body">
+          <div class="topics-row">
+            <div class="topics-label">Topics covered</div>
+            <div class="topics-list">
+              <span class="topic-pill">Axios</span><span class="topic-pill">CORS setup</span><span class="topic-pill">Vite env vars</span><span class="topic-pill">Full request cycle</span><span class="topic-pill">Loading/error states</span><span class="topic-pill">MERN folder structure</span>
+            </div>
+          </div>
+          <div class="hw-box">
+            <div class="hw-label"><i class="ti ti-pencil"></i>Homework task</div>
+            <div class="hw-text">Connect your React frontend to your Books API. Build UI to list, add, edit, and delete books — all data from MongoDB via Axios. Both client/ and server/ in one GitHub repo. Your first full MERN app!</div>
+          </div>
+          <div class="submit-row">
+            <i class="ti ti-send" style="font-size:15px;color:var(--text2)"></i>
+            <span class="submit-label">Submit here:</span>
+            <a class="submit-link" href="#">[Submission link — fill before sharing]</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- WEEK 4 -->
+    <div class="week-panel" id="w4">
+      <div class="week-header-card">
+        <div>
+          <div class="wh-title">Week 4 — Full MERN App + Deployment</div>
+          <div class="wh-sub">JWT auth · Final project · Render · Vercel · Demo Day</div>
+        </div>
+        <span class="wh-badge badge-intensive"><i class="ti ti-bolt" style="font-size:13px;margin-right:4px"></i>3 days × 6 hours — intensive</span>
+      </div>
+      <div class="day-card">
+        <div class="day-head" onclick="toggleDay(this)">
+          <span class="day-num">Day 10</span>
+          <span class="day-title">Authentication — JWT + protected routes</span>
+          <span class="day-tag">Auth</span>
+          <i class="ti ti-chevron-down day-arrow"></i>
+        </div>
+        <div class="day-body">
+          <div class="topics-row">
+            <div class="topics-label">Topics covered</div>
+            <div class="topics-list">
+              <span class="topic-pill">bcrypt</span><span class="topic-pill">JWT tokens</span><span class="topic-pill">Auth middleware</span><span class="topic-pill">Register & login</span><span class="topic-pill">Protected React routes</span><span class="topic-pill">Token in localStorage</span>
+            </div>
+          </div>
+          <div class="hw-box">
+            <div class="hw-label"><i class="ti ti-pencil"></i>Homework task</div>
+            <div class="hw-text">Add <strong>full auth</strong> to your MERN app — register, login, logout with JWT. Protect all CRUD routes server-side. React protected routes redirect to /login if not authenticated. Show username in navbar when logged in.</div>
+          </div>
+          <div class="submit-row">
+            <i class="ti ti-send" style="font-size:15px;color:var(--text2)"></i>
+            <span class="submit-label">Submit here:</span>
+            <a class="submit-link" href="#">[Submission link — fill before sharing]</a>
+          </div>
+        </div>
+      </div>
+      <div class="day-card">
+        <div class="day-head" onclick="toggleDay(this)">
+          <span class="day-num">Day 11</span>
+          <span class="day-title">Final project build day — Task Manager</span>
+          <span class="day-tag">Capstone</span>
+          <i class="ti ti-chevron-down day-arrow"></i>
+        </div>
+        <div class="day-body">
+          <div class="topics-row">
+            <div class="topics-label">What you build</div>
+            <div class="topics-list">
+              <span class="topic-pill">Auth (register/login)</span><span class="topic-pill">Task CRUD</span><span class="topic-pill">Priority & due date</span><span class="topic-pill">Search & filter</span><span class="topic-pill">Responsive UI</span><span class="topic-pill">Code review pairs</span>
+            </div>
+          </div>
+          <div class="hw-box">
+            <div class="hw-label"><i class="ti ti-pencil"></i>Homework task</div>
+            <div class="hw-text">Complete your Task Manager — all features working, responsive, zero console errors. Write a README.md with setup instructions, features, tech stack, and at least 2 screenshots. Push with clean commit history.</div>
+          </div>
+          <div class="submit-row">
+            <i class="ti ti-send" style="font-size:15px;color:var(--text2)"></i>
+            <span class="submit-label">Submit here:</span>
+            <a class="submit-link" href="#">[Submission link — fill before sharing]</a>
+          </div>
+        </div>
+      </div>
+      <div class="day-card">
+        <div class="day-head" onclick="toggleDay(this)">
+          <span class="day-num">Day 12</span>
+          <span class="day-title">Deployment + Demo Day 🎉</span>
+          <span class="day-tag">Deploy</span>
+          <i class="ti ti-chevron-down day-arrow"></i>
+        </div>
+        <div class="day-body">
+          <div class="topics-row">
+            <div class="topics-label">Topics covered</div>
+            <div class="topics-list">
+              <span class="topic-pill">Render.com (backend)</span><span class="topic-pill">Vercel (frontend)</span><span class="topic-pill">Env vars in prod</span><span class="topic-pill">Atlas prod config</span><span class="topic-pill">Debugging prod</span><span class="topic-pill">Live demos</span>
+            </div>
+          </div>
+          <div class="hw-box">
+            <div class="hw-label"><i class="ti ti-star"></i>Final submission</div>
+            <div class="hw-text">Your Task Manager must be <strong>live on the internet</strong>. Submit: (1) Live Vercel URL, (2) GitHub repo link, (3) 2–3 min Loom recording showing all features working in production.</div>
+          </div>
+          <div class="submit-row">
+            <i class="ti ti-send" style="font-size:15px;color:var(--text2)"></i>
+            <span class="submit-label">Final submission:</span>
+            <a class="submit-link" href="#">[Final submission link — fill before sharing]</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr/>
+
+  <div class="section" id="setup">
+    <div class="section-label">Install before Day 1</div>
+    <div class="prereq-grid">
+      <div class="prereq-item"><i class="ti ti-brand-vscode"></i>VS Code</div>
+      <div class="prereq-item"><i class="ti ti-brand-nodejs"></i>Node.js (LTS)</div>
+      <div class="prereq-item"><i class="ti ti-git-branch"></i>Git</div>
+      <div class="prereq-item"><i class="ti ti-api"></i>Postman</div>
+      <div class="prereq-item"><i class="ti ti-database"></i>MongoDB Atlas (free)</div>
+      <div class="prereq-item"><i class="ti ti-brand-github"></i>GitHub account</div>
+    </div>
+  </div>
+
+  <hr/>
+
+  <div class="section" id="rules">
+    <div class="section-label">Course rules</div>
+    <div class="rules-grid">
+      <div class="rule-item"><i class="ti ti-check rule-icon"></i><span class="rule-text">Submit every task before the next session via the link provided.</span></div>
+      <div class="rule-item"><i class="ti ti-check rule-icon"></i><span class="rule-text">All code must be pushed to GitHub — repo ready by Day 1.</span></div>
+      <div class="rule-item"><i class="ti ti-check rule-icon"></i><span class="rule-text">Stuck? Post your error + what you already tried in the group first.</span></div>
+      <div class="rule-item"><i class="ti ti-check rule-icon"></i><span class="rule-text">Weeks 2 & 4 are intensive (6h/day) — clear your schedule in advance.</span></div>
+      <div class="rule-item"><i class="ti ti-check rule-icon"></i><span class="rule-text">Final project is solo — no team submissions accepted.</span></div>
+      <div class="rule-item"><i class="ti ti-check rule-icon"></i><span class="rule-text">Missed a session? Watch the recording and still submit the task.</span></div>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <p>MERN Stack Bootcamp · Questions? Post in the course group · You've got this 🚀</p>
+</footer>
+
+<script>
+function showWeek(n){
+  document.querySelectorAll('.week-panel').forEach(p=>p.classList.remove('show'));
+  document.querySelectorAll('.wk-btn').forEach(b=>{b.classList.remove('active','w1','w2','w3','w4')});
+  document.getElementById('w'+n).classList.add('show');
+  const btn=document.querySelectorAll('.wk-btn')[n-1];
+  btn.classList.add('active','w'+n);
+}
+function toggleDay(head){
+  const body=head.nextElementSibling;
+  const arrow=head.querySelector('.day-arrow');
+  const isOpen=body.classList.contains('open');
+  body.classList.toggle('open',!isOpen);
+  arrow.classList.toggle('open',!isOpen);
+}
+</script>
+</body>
+</html>
